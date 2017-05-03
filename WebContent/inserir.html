@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastar Usuário</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+</head>
+<body>
+	<div class="container-fluid">
+		<form method="post" id="InsertServlet">
+			<div class="form-group">
+				<label for="email">Email:</label> <input type="text"
+					class="form-control" required name="email" id="email">
+			</div>
+			<div class="form-group">
+				<label for="nome">Nome:</label> <input type="text"
+					class="form-control" required name="nome" id="nome">
+			</div>
+			<div class="form-group">
+				<label for="cpf">CPF:</label> <input type="number"
+					class="form-control" required name="cpf" id="cpf" maxlength="11" min="0">
+			</div>
+
+			<div class="form-group">
+				<label for="telefone">Telefone:</label> <input type="number"
+					class="form-control" required name="telefone" id="telefone" min="0">
+			</div>
+
+			<div class="form-group">
+				<label for="situacao">Situação:</label> 
+				<select class="form-control" required name="situacao" id="situacao">
+					<option value="A">Ativo</option>
+					<option value="I">Inativo</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="funcao">Função:</label> <input type="number"
+					class="form-control" required name="funcao" id="funcao" maxlength="1" min="0">
+			</div>
+
+			<div class="form-group">
+				<label for="perfil">Perfil:</label>
+				<select class="form-control"
+					required name="perfil" id="perfil">
+					<option value=0>Aluno</option>
+					<option value=1>Gestor</option>
+					<option value=2>Municipal</option>
+					<option value=3>Gestor Estadual</option>
+					<option value=4>Gestor Nacional</option>
+				</select>
+
+			</div>
+			<div>
+				<input type="button" value="Voltar" id="btnVoltar"
+					class="btn btn-warning btn-xs" onClick="history.go(-1)" />
+			</div>
+
+			<div class="form-group">
+				<input type="submit" value="Adicionar" id="btnAdicionar"
+					class="btn btn-success btn-xs" />
+			</div>
+			<div id="mensagem"></div>
+
+		</form>
+
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(
+				function() {
+					$("#InsertServlet").submit(
+							function(event) {
+								event.preventDefault();
+								$.post(
+										"InsertServlet",
+										$(this).serialize(),
+										function(data, status) {
+											$("#mensagem").fadeIn("fast").html(
+													data);
+											setTimeout(10000);
+											$("#mensagem").fadeOut(15000).html(
+													data);
+										}).fail(function(xhr, status, error) {
+									$("#mensagem").html(xhr.responseText);
+								})
+
+							})
+				})
+	</script>
+
+</body>
+</html>
